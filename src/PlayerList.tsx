@@ -17,9 +17,31 @@ import { Carding } from "./components/CardYouTube";
 import { CONFIG } from "./config";
 import { getTriggerFrame } from "./utils/triggerFrame";
 
+// import rawTopPlayers from "../public/data/alter_ego.json";
+// import rawTopPlayers from "../public/data/bigetron_esports.json";
+// import rawTopPlayers from "../public/data/dewa_united_esports.json";
+// import rawTopPlayers from "../public/data/geek_fam_id.json";
+// import rawTopPlayers from "../public/data/onic.json";
+// import rawTopPlayers from "../public/data/evos.json";
+// import rawTopPlayers from "../public/data/rrq_hoshi.json";
+// import rawTopPlayers from "../public/data/test.json";
+
+// import rawTopPlayers from "../public/data/mlbb_exp_laner.json";
+// import rawTopPlayers from "../public/data/mlbb_gold_laner.json";
+// import rawTopPlayers from "../public/data/mlbb_mid_laner.json";
+// import rawTopPlayers from "../public/data/mlbb_jungle.json";
+// import rawTopPlayers from "../public/data/mlbb_roam.json";
+// import rawTopPlayers from "../public/data/mlbb_all_role.json";
+
+
+// import rawTopPlayers from "../public/gaming/mpl_id.json";
+// import rawTopPlayers from "../public/gaming/mpl_ph.json";
+// import rawTopPlayers from "../public/gaming/mpl_my.json";
+
+
 
 // import rawTopPlayers from "../public/youtube/youtube-example.json";
-import rawTopPlayers from "../public/youtube/global.json";
+// import rawTopPlayers from "../public/youtube/global.json";
 // import rawTopPlayers from "../public/youtube/india.json";
 // import rawTopPlayers from "../public/youtube/usa.json";
 // import rawTopPlayers from "../public/youtube/indonesia.json";
