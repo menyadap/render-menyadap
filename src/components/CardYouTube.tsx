@@ -5,19 +5,19 @@ import { CircleFlag } from "react-circle-flags";
 import { getCountryCode, getCountryName } from "../utils/getCountryCode";
 
 import { loadFont as loadRoboto } from "@remotion/google-fonts/Roboto";
-import { loadFont as loadRobotoMono } from "@remotion/google-fonts/RobotoMono";
+// import { loadFont as loadRobotoMono } from "@remotion/google-fonts/RobotoMono";
 import { loadFont as loadRubik } from "@remotion/google-fonts/Rubik";
 // import { loadFont as loadPoppins } from "@remotion/google-fonts/Poppins";
 import { loadFont as loadNotoSans } from "@remotion/google-fonts/NotoSans";
 
 import { useVideoConfig, staticFile } from "remotion";
-import { FadeInOnFrame } from "./FadeInOnFrame";
-import { TypingOnFrame } from "./TypingOnFrame";
-import { AnimatedProfileImage } from "./AnimatedProfileImage";
-import { AnimatedNumberCounterAdvanced } from "./AnimatedNumberCounterAdvanced";
+import { FadeInOnFrame } from "../plugin/FadeInOnFrame";
+import { TypingOnFrame } from "../plugin/TypingOnFrame";
+import { AnimatedProfileImage } from "../plugin/AnimatedProfileImage";
+import { AnimatedNumberCounterAdvanced } from "../plugin/AnimatedNumberCounterAdvanced";
 import { CONFIG } from "../config";
 import YouTubeReward from "../utils/YouTubeReward";
-import { ScrollText } from "./ScrollText";
+import { ScrollText } from "../plugin/ScrollText";
 
 
 // Add helper function to check if URL is local or remote
@@ -33,7 +33,7 @@ const getImageSource = (url: string | undefined) => {
 
 // Load fonts
 const { fontFamily: robotoFont } = loadRoboto();
-const { fontFamily: robotoMonoFont } = loadRobotoMono();
+// const { fontFamily: robotoMonoFont } = loadRobotoMono();
 const { fontFamily: RubikFont } = loadRubik();
 // const { fontFamily: poppinsFont } = loadPoppins();
 const { fontFamily: notoSansFont } = loadNotoSans();
