@@ -255,9 +255,33 @@ export const Carding: React.FC<CardingProps> = ({ person, style, index, triggerF
                   {(() => {
                     const num = Number(Subscribes.replace(/,/g, ""));
                     if (isNaN(num)) return Subscribes;
-                    if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(num % 1_000_000_000 === 0 ? 0 : 1)} Billion`;
-                    if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(num % 1_000_000 === 0 ? 0 : 1)} Million`;
-                    if (num >= 1_000) return `${(num / 1_000).toFixed(num % 1_000 === 0 ? 0 : 1)}K`;
+                    if (num >= 1_000_000_000) {
+                      const billions = num / 1_000_000_000;
+                      if (billions % 1 === 0) {
+                        return `${billions} Billion`;
+                      }
+                      // Gunakan Math.round untuk menghindari pembulatan yang tidak diinginkan
+                      const roundedBillions = Math.round(billions * 10) / 10;
+                      return `${roundedBillions} Billion`;
+                    }
+                    if (num >= 1_000_000) {
+                      const millions = num / 1_000_000;
+                      if (millions % 1 === 0) {
+                        return `${millions} Million`;
+                      }
+                      // Gunakan Math.floor untuk memastikan tidak membulatkan ke atas
+                      const flooredMillions = Math.floor(millions * 10) / 10;
+                      return `${flooredMillions} Million`;
+                    }
+                    if (num >= 1_000) {
+                      const thousands = num / 1_000;
+                      if (thousands % 1 === 0) {
+                        return `${thousands}K`;
+                      }
+                      // Gunakan Math.round untuk menghindari pembulatan yang tidak diinginkan
+                      const roundedThousands = Math.round(thousands * 10) / 10;
+                      return `${roundedThousands}K`;
+                    }
                     return num.toString();
                   })()}
                 </p>

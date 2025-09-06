@@ -13,7 +13,7 @@ import {
 import React, { useMemo, useEffect, useState } from "react";
 import { loadFont as loadRubik } from "@remotion/google-fonts/Rubik";
 import { rawData, validateRawDatas } from "./types/schema";
-import { Carding } from "./components/CardYouTube";
+import { Carding } from "./components/CardInstagram";
 import { CONFIG } from "./config";
 import { getTriggerFrame } from "./utils/triggerFrame";
 
@@ -38,10 +38,42 @@ import { getTriggerFrame } from "./utils/triggerFrame";
 // import rawTopData from "../public/gaming/mpl_my.json";
 
 // import rawTopData from "../public/youtube/youtube-example.json";
-import rawTopData from "../public/youtube/global.json";
+// import rawTopData from "../public/youtube/global.json";
 // import rawTopData from "../public/youtube/india.json";
 // import rawTopData from "../public/youtube/usa.json";
 // import rawTopData from "../public/youtube/indonesia.json";
+
+// import rawTopData from "../public/youtube/bangladesh.json";
+// import rawTopData from "../public/youtube/brazil.json";
+// import rawTopData from "../public/youtube/egypt.json";
+// import rawTopData from "../public/youtube/japan.json";
+// import rawTopData from "../public/youtube/nigeria.json";
+// import rawTopData from "../public/youtube/mexico.json";
+// import rawTopData from "../public/youtube/pakistan.json";
+// import rawTopData from "../public/youtube/philipins.json";
+// import rawTopData from "../public/youtube/russia.json";
+// import rawTopData from "../public/youtube/vietnam.json";
+
+// import rawTopData from "../public/twitch/twitch-100.json";
+
+// import rawTopData from "../public/tiktok/tiktok-tester.json";
+
+
+
+// import rawTopData from "../public/instagram/ig-global_updated.json";
+// import rawTopData from "../public/instagram/ig-bd_updated.json";
+// import rawTopData from "../public/instagram/ig-br_updated.json"; // ready
+// import rawTopData from "../public/instagram/ig-eg_updated.json";
+// import rawTopData from "../public/instagram/ig-in_updated.json";
+// import rawTopData from "../public/instagram/ig-jp_updated.json";
+// import rawTopData from "../public/instagram/ig-id_updated.json";
+// import rawTopData from "../public/instagram/ig-mx_updated.json";
+import rawTopData from "../public/instagram/ig-ng_updated.json";
+// import rawTopData from "../public/instagram/ig-ph_updated.json";
+// import rawTopData from "../public/instagram/ig-pk_updated.json";
+// import rawTopData from "../public/instagram/ig-ru_updated.json";
+// import rawTopData from "../public/instagram/ig-usa_updated.json";
+// import rawTopData from "../public/instagram/instagram-tester.json";
 
 import Intro from "./plugin/Intro";
 import Ending from "./plugin/Ending";
@@ -69,6 +101,7 @@ type PlayerListProps = {
   durasiPerCardDetik: number;
   introDelay: number;
   endingDuration: number;
+  backgroundColor?: string;
 };
 
 /**
@@ -82,7 +115,8 @@ export const CardList: React.FC<PlayerListProps> = ({
   cardsToShow = 10, 
   durasiPerCardDetik = 6, 
   introDelay = 120, 
-  endingDuration = 300 
+  endingDuration = 300,
+  backgroundColor = "#212121",
 }) => {
   const frame = useCurrentFrame();
   const { fps, width, height, } = useVideoConfig();
@@ -98,28 +132,34 @@ export const CardList: React.FC<PlayerListProps> = ({
     const processData = async () => {
       try {
         const data = validateRawDatas(rawTopData)
-          .sort((a: rawData, b: rawData) => {
-            // Utamakan followers_count (ascending - terbanyak di akhir)
-            const aFollowers = a.followers_count || 0;
-            const bFollowers = b.followers_count || 0;
-            
-            if (aFollowers !== bFollowers) {
-              return aFollowers - bFollowers; // Ascending order
-            }
-            
-            // Jika followers_count sama, urutkan berdasarkan date (terlama di atas)
+        .sort((a: rawData, b: rawData) => {
+          // Utamakan followers_count (ascending - terbanyak di akhir)
+          const aFollowers = a.followers_count || 0;
+          const bFollowers = b.followers_count || 0;
+          
+          if (aFollowers !== bFollowers) {
+            return aFollowers - bFollowers; // Ascending order
+          }
+          
+          // Jika followers_count sama, urutkan berdasarkan date (terlama di atas)
+          // Jika date tidak ada, gunakan name
+          if (a.date && b.date) {
             const aDate = new Date(a.date).getTime();
             const bDate = new Date(b.date).getTime();
             
             if (aDate !== bDate) {
               return aDate - bDate; // Ascending order (terlama di atas)
             }
-            
-            // Jika date sama, urutkan berdasarkan name
-            const aName = a.name || '';
-            const bName = b.name || '';
-            return aName.localeCompare(bName);
-          });
+          } else if (a.date !== b.date) {
+            // Jika salah satu tidak punya date, yang punya date di atas
+            return a.date ? -1 : 1;
+          }
+          
+          // Jika date sama atau keduanya tidak punya date, urutkan berdasarkan name
+          const aName = a.name || '';
+          const bName = b.name || '';
+          return aName.localeCompare(bName);
+        });
         setValidatedData(data);
         continueRender(handle);
       } catch (error) {
@@ -167,7 +207,7 @@ export const CardList: React.FC<PlayerListProps> = ({
     <AbsoluteFill>
       {/* Sequence Intro - Menampilkan komponen Intro */}
       <Sequence  durationInFrames={introDelay}>
-        <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor: "#212121", overflow: "hidden" }}>
+        <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor, overflow: "hidden" }}>
           <div className="grid-mask" style={{ position: "absolute", inset: 0, zIndex: 0 }} />
           <div
             className="w-full flex justify-center"
@@ -187,7 +227,7 @@ export const CardList: React.FC<PlayerListProps> = ({
       <Sequence from={introDelay} durationInFrames={totalDuration}>
         {/* <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor: "#212121" }}>
           <div className="grid-mask" style={{ position: "absolute", inset: 0, zIndex: 1 }} /> */}
-        <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor: "#212121", overflow: "hidden" }}>
+        <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor, overflow: "hidden" }}>
           <div className="grid-mask" style={{ position: "absolute", inset: 0, zIndex: 1 }} />
           <div
             className="w-full flex items-center justify-center"
@@ -261,12 +301,26 @@ export const CardList: React.FC<PlayerListProps> = ({
           volume={(f) =>
             interpolate(
               f,
-              [0, 30, totalDuration - 10 * fps, totalDuration],
-              [0.3, 0.5, 0.5, 0.1],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+              [0, 40, 80, 120, 160, 200, 240, totalDuration - 15 * fps, totalDuration - 5 * fps, totalDuration],
+              [0, 0.03, 0.08, 0.15, 0.25, 0.4, 0.6, 0.6, 0.3, 0],
+              { 
+                extrapolateLeft: "clamp", 
+                extrapolateRight: "clamp",
+                easing: (t) => {
+                  // Easing yang lebih gentle untuk fade in
+                  if (t < 0.5) {
+                    // Fade in: menggunakan cubic ease-in yang lebih halus
+                    return t * t * t;
+                  } else {
+                    // Fade out: tetap smooth
+                    return 1 - Math.pow(-2 * t + 2, 2) / 2;
+                  }
+                }
+              }
             )
           }
-          src={staticFile("_audio/parzival_william_rosati.mp3")}
+          src={staticFile("_audio/10menit.m4a")}
+          // src={staticFile("_audio/parzival_william_rosati.mp3")}
           // src={staticFile("_audio/pooka_kevin_macleod.mp3")}          
           startFrom={120}
         />
@@ -274,7 +328,7 @@ export const CardList: React.FC<PlayerListProps> = ({
 
       {/* Sequence Ending - Muncul setelah Player List Animation selesai */}
       <Sequence from={endingStartFrame} durationInFrames={endingDuration}>
-        <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor: "#212121", overflow: "hidden" }}>
+        <div style={{ position: "relative", width: "100%", height: "100%", backgroundColor, overflow: "hidden" }}>
             <div className="grid-mask" style={{ position: "absolute", inset: 0, zIndex: 1 }} />
             <div
               className="w-full flex justify-center"
